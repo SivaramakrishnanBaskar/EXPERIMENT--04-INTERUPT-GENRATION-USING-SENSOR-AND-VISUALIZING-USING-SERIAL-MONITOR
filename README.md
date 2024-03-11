@@ -1,8 +1,8 @@
-###  DATE: 
+###  DATE: 08/03/2024
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: Sivaramakrishnan B
+###  ROLL NO : 212222110044
+###  DEPARTMENT: CSE(IOT)
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -109,24 +109,60 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 ![image](https://user-images.githubusercontent.com/36288975/227599656-dc4a635f-b5f1-44c8-84c5-ee0a592fa184.png)
 
 
-17. check for execution of the output by switching the board to run mode 
-18. click on the serial port utility 
+17. check for execution of the output by switching the board to run mode
+   
+19. click on the serial port utility 
 ![image](https://github.com/vasanthkumarch/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/36288975/cd2c17fc-afac-4d72-97f9-20db3e63f23f)
-19. click on the run to observe the values 
-
-
+20. click on the run to observe the values 
   
 
 ## STM 32 CUBE PROGRAM :
 
+```
 
+#include "main.h"
+#include "stdio.h"
+
+#if defined (__ICCARM__) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
+
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+		if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0)
+		{
+			printf("obstacle found\n");
+			HAL_Delay(500);
+		}
+		else
+		{
+			printf("obstacle not found\n");
+			HAL_Delay(500);
+		}
+}
+
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+
+```
 
 ## Output screen shots of serial port utility   :
+![image](https://github.com/SivaramakrishnanBaskar/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/119476322/0292aed5-e4cf-4c67-960d-569088be9891)
  
  
  ## Circuit board :
- 
- 
+ ![image](https://github.com/SivaramakrishnanBaskar/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/119476322/cf51eabd-01e8-4962-8d94-034bfa49a52a)
+
+ ![image](https://github.com/SivaramakrishnanBaskar/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/119476322/5c948ea1-ec30-477d-9597-a66da839c480)
+
  
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
